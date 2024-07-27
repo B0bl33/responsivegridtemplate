@@ -1,0 +1,193 @@
+/* Base styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #ff0000, #4b0082); /* Gradient background */
+    background-size: cover;
+    width: 100%;
+}
+
+.container {
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    width: 100%;
+    height: 100vh; /* Ensure the container takes up the full height of the viewport */
+    gap: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+header {
+    grid-row: 1 / 2;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.2); /* Glass-like effect */
+    padding: 20px;
+    text-align: center;
+    color: white;
+    box-sizing: border-box;
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    position: relative;
+}
+
+header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('thehead.png') no-repeat center/cover;
+    opacity: 0.3; /* Adjust opacity as needed */
+    z-index: -1;
+}
+
+nav {
+    grid-row: 2 / 3;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.2); /* Glass-like effect */
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.nav-button {
+    background: none;
+    border: none;
+    border-radius: 2px;
+    color: white;
+    padding: 10px 20px;
+    margin: 0 10px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s, color 0.3s;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.nav-button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.4);
+    z-index: -1;
+    transition: transform 0.3s;
+    transform: scaleX(0);
+    transform-origin: right;
+}
+
+.nav-button:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.nav-button:hover {
+    color: rgb(255, 244, 142);
+}
+
+.nav-button:not(:last-child) {
+    border-right: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border between buttons */
+}
+
+.content {
+    grid-row: 3 / 4;
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr; /* Adjusted to fit better */
+    width: 100%;
+    height: 100%; /* Ensure the content takes up the remaining height */
+    gap: 10px;
+}
+
+.left, .right {
+    display: grid;
+    gap: 10px;
+    grid-template-rows: repeat(3, 1fr); /* Ensure equal height for left and right items */
+}
+
+.right {
+    grid-template-rows: repeat(4, 1fr); /* Four equal rows */
+}
+
+.left-item, .right-item, main {
+    background: rgba(255, 255, 255, 0.2); /* Glass-like effect */
+    padding: 10px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    color: white;
+}
+
+main {
+    grid-column: 2 / 3;
+    background: rgba(255, 255, 255, 0.2); /* Glass-like effect */
+    padding: 20px;
+    text-align: center;
+}
+
+/* Animated Header Styles */
+.animated-header {
+    display: inline-block;
+    font-size: 4em;
+    transform: perspective(500px) rotateX(25deg);
+    transition: transform 0.5s, color 0.5s;
+    color: white; /* Changed initial color to white */
+    margin: 0;
+}
+
+.animated-header:hover {
+    transform: perspective(500px) rotateX(0deg);
+    animation: flash 1s infinite alternate;
+}
+
+@keyframes flash {
+    0% {
+        color: rgb(255, 1, 1);
+    }
+    100% {
+        color: rgb(255, 255, 190);
+    }
+}
+
+/* Media query for screens less than 1000px */
+@media (max-width: 1000px) {
+    .content {
+        grid-template-columns: 1fr; /* Single column layout */
+        grid-template-rows: auto auto 1fr auto auto; /* Five rows: header, nav, main content, left items, right items */
+    }
+    
+    header {
+        grid-row: 1 / 2; /* Header in the first row */
+    }
+
+    header::before {
+        background: url('smallban.PNG') no-repeat center/cover;
+    }
+
+    nav {
+        grid-row: 2 / 3; /* Navigation in the second row */
+    }
+    
+    main {
+        grid-row: 3 / 4; /* Main content in the third row */
+        grid-column: 1 / 2; /* Full width */
+    }
+    
+    .left {
+        grid-row: 4 / 5; /* Left items in the fourth row */
+    }
+    
+    .right {
+        grid-row: 5 / 6; /* Right items in the fifth row */
+    }
+}
